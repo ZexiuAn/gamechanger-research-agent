@@ -368,18 +368,20 @@ async def demo_tasks():
 
 @app.get("/api/health")
 async def api_health():
-    """给 UI 显示模型是否已配置（不暴露密钥）。"""
+    """Health check for UI status bar without exposing secrets."""
     try:
         from app.config import config
 
         llm = config.llm["default"]
         key = (llm.api_key or "").strip()
         ok = bool(key)
+        model_name = llm.model or "Claude-3.5-Sonnet"
+        provider = "Anthropic" if "claude" in model_name.lower() else ("OpenAI" if "gpt" in model_name.lower() else "LLM")
         return {
             "ok": ok,
-            "model": llm.model if ok else None,
-            "provider": "DashScope" if ok else None,
-            "message": "已连接" if ok else "未配置 API Key",
+            "model": model_name if ok else None,
+            "provider": provider if ok else None,
+            "message": "Connected" if ok else "API Key Not Configured",
         }
     except Exception as e:
         return {"ok": False, "model": None, "provider": None, "message": str(e)}
@@ -387,25 +389,24 @@ async def api_health():
 
 @app.get("/api/capabilities")
 async def api_capabilities():
-    """展示当前打开的能力面（工具 / MCP / 浏览器开关）。"""
+    """Expose enabled capability surface for UI display."""
     try:
         from app.agent.manus import Manus, _BROWSER_AVAILABLE
         from app.config import config
 
-        # 不 create()，避免每次刷新都拉起 MCP 子进程
         tool_names = [t.name for t in Manus().available_tools.tools]
         mcp_ids = list((config.mcp_config.servers or {}).keys())
         features = [
-            {"id": "react", "label": "多步 Tool Calling", "on": True},
-            {"id": "web_search", "label": "联网搜索", "on": "web_search" in tool_names},
-            {"id": "fetch_url", "label": "网页精读", "on": "fetch_url" in tool_names},
-            {"id": "research_kb", "label": "调研知识库", "on": "research_kb" in tool_names},
-            {"id": "files", "label": "文件落盘", "on": "str_replace_editor" in tool_names},
-            {"id": "python", "label": "代码执行", "on": "python_execute" in tool_names},
-            {"id": "mcp", "label": f"MCP({','.join(mcp_ids) or '未配置'})", "on": bool(mcp_ids)},
+            {"id": "react", "label": "Multi-step Tool Calling", "on": True},
+            {"id": "web_search", "label": "Web Search", "on": "web_search" in tool_names},
+            {"id": "fetch_url", "label": "Deep URL Reader", "on": "fetch_url" in tool_names},
+            {"id": "research_kb", "label": "Domain Knowledge KB", "on": "research_kb" in tool_names},
+            {"id": "files", "label": "Deliverable Persistence", "on": "str_replace_editor" in tool_names},
+            {"id": "python", "label": "Code Execution", "on": "python_execute" in tool_names},
+            {"id": "mcp", "label": f"MCP ({','.join(mcp_ids) or 'None'})", "on": bool(mcp_ids)},
             {
                 "id": "browser",
-                "label": "浏览器自动化",
+                "label": "Browser Automation",
                 "on": _BROWSER_AVAILABLE and "browser_use" in tool_names,
             },
         ]

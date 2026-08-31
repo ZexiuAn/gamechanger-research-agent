@@ -63,14 +63,14 @@ function makeStepCard(kind, summaryHtml, rawText) {
   const head = document.createElement("div");
   head.className = "step-card-head";
   const labels = {
-    think: "思考",
-    tool: "工具",
-    search: "检索摘要",
-    act: "执行结果",
-    step: "步骤",
-    log: "日志",
+    think: "Reasoning",
+    tool: "Tool Call",
+    search: "Search Summary",
+    act: "Tool Result",
+    step: "Step",
+    log: "Log",
   };
-  head.textContent = labels[kind] || "进度";
+  head.textContent = labels[kind] || "Progress";
   wrap.appendChild(head);
 
   const body = document.createElement("div");
@@ -82,7 +82,7 @@ function makeStepCard(kind, summaryHtml, rawText) {
     const details = document.createElement("details");
     details.className = "step-raw";
     const summary = document.createElement("summary");
-    summary.textContent = "展开原始输出";
+    summary.textContent = "View raw output";
     const pre = document.createElement("pre");
     pre.textContent = cleanNoise(rawText).slice(0, 6000);
     details.appendChild(summary);
@@ -162,20 +162,20 @@ function buildTraceStep(raw, type) {
   if (/selected\s+\d+\s+tools/i.test(cleaned) || /Tools being prepared/i.test(cleaned)) {
     const tools = cleaned.match(/\[([^\]]+)\]/);
     const msg = tools
-      ? `准备调用：${tools[1]}`
+      ? `Preparing tools: ${tools[1]}`
       : truncateText(cleaned.replace(/^[✨🛠️🧰🔧🎯📝🏁]+\s*/u, ""), 160);
     return makeStepCard("tool", `<p>${escapeHtml(msg)}</p>`, null);
   }
 
   if (/Activating tool/i.test(cleaned)) {
     const name = (cleaned.match(/'([^']+)'/) || [])[1] || "tool";
-    return makeStepCard("tool", `<p>正在执行 <code>${escapeHtml(name)}</code></p>`, null);
+    return makeStepCard("tool", `<p>Activating <code>${escapeHtml(name)}</code></p>`, null);
   }
 
   if (/Tool arguments/i.test(cleaned)) {
     return makeStepCard(
       "tool",
-      `<p>参数：${escapeHtml(truncateText(cleaned.replace(/^[\s\S]*Tool arguments:\s*/i, ""), 180))}</p>`,
+      `<p>Args: ${escapeHtml(truncateText(cleaned.replace(/^[\s\S]*Tool arguments:\s*/i, ""), 180))}</p>`,
       cleaned
     );
   }
@@ -188,7 +188,7 @@ function buildTraceStep(raw, type) {
       const path = (cleaned.match(/\/[^\s]+workspace\/[^\s]+/) || cleaned.match(/workspace\/[\w./-]+/) || [])[0];
       return makeStepCard(
         "act",
-        `<p>文件操作完成${path ? `：<code>${escapeHtml(path)}</code>` : ""}</p>`,
+        `<p>Deliverable updated${path ? `: <code>${escapeHtml(path)}</code>` : ""}</p>`,
         cleaned
       );
     }

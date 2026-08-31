@@ -6,9 +6,10 @@ logs/
 data/*
 !data/research_assets.json
 
-# Workspace (keep seed memo for docs demo)
+# Workspace (keep seed memo and sample output for docs demo)
 workspace/*
 !workspace/internal_memo_rd_tasks.txt
+!workspace/research_brief_sports_ai.md
 !workspace/.gitkeep
 
 ### Python ###

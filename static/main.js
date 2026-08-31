@@ -29,7 +29,7 @@ function createChat() {
     const prompt = promptInput.value.trim();
 
     if (!prompt) {
-        showErrorToast("请输入有效任务描述");
+        showErrorToast("Please enter a valid research goal or prompt");
         promptInput.focus();
         return;
     }
@@ -155,7 +155,7 @@ function setupSSE(taskId, isLongThought) {
                         addMessage(lastResultContent, 'ai');
                     }
                 } else if (finalAnswer) {
-                    finalAnswer.textContent = '任务已完成。请查看 workspace/ 中的交付文件。';
+                    finalAnswer.textContent = 'Task completed. Deliverable briefing persisted to workspace/.';
                 }
                 scrollView();
                 eventSource.close();
