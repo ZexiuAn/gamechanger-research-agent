@@ -1,0 +1,62 @@
+{
+  "glossary": {
+    "SaaS": "Software as a Service, subscription-delivered cloud business software.",
+    "Agent": "An autonomous entity that perceives its environment and takes multi-step actions using tools to achieve goals.",
+    "MCP": "Model Context Protocol, an open standard by Anthropic connecting AI assistants to data sources and tool servers.",
+    "Tool Calling": "LLM selecting and invoking external functions/APIs based on structured JSON schema.",
+    "RAG": "Retrieval-Augmented Generation, fetching relevant domain context before LLM answer generation.",
+    "SSE": "Server-Sent Events, real-time unidirection streaming protocol from backend server to browser."
+  },
+  "competitors": [
+    {
+      "name": "Hudl",
+      "focus": "Sports video analysis / Team management / Performance analytics",
+      "notes": "Major digital sports and team workflow benchmark"
+    },
+    {
+      "name": "MaxPreps",
+      "focus": "High school sports data / Stat tracking / Rankings",
+      "notes": "Youth and high school sports information network"
+    },
+    {
+      "name": "SportsEngine (NBC Sports)",
+      "focus": "League management / Registration / Youth sports platform",
+      "notes": "Enterprise league operations benchmark"
+    },
+    {
+      "name": "TeamSnap",
+      "focus": "Team coordination / Scheduling / Mobile communication",
+      "notes": "Grassroots team management and scheduling benchmark"
+    },
+    {
+      "name": "Notion / Slack AI",
+      "focus": "Team knowledge collaboration / Automated briefing",
+      "notes": "Cross-domain enterprise productivity benchmark"
+    }
+  ],
+  "templates": {
+    "research": {
+      "id": "research",
+      "title": "Competitor & Tech Research Briefing",
+      "outline": [
+        "Executive Summary & Objectives",
+        "Key Findings (5-8 Bullet Points)",
+        "Competitor Comparison Matrix",
+        "Risks & Verification Items",
+        "References & Citations (Title + URL)"
+      ],
+      "output_file": "workspace/research_brief_*.md"
+    },
+    "docs": {
+      "id": "docs",
+      "title": "Internal Memo & Task Digest",
+      "outline": [
+        "Task Overview",
+        "Action Items Grouped by Priority",
+        "Owner & Responsibility Distribution",
+        "Deadline & Risk Reminders"
+      ],
+      "output_file": "workspace/task_digest_*.md"
+    }
+  }
+}

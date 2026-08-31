@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <title>GameChanger Research Agent</title>
+    <link href="static/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://gcore.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <script>
+      try {
+        localStorage.setItem("theme", "dark");
+      } catch (e) {}
+      document.documentElement.setAttribute("data-bs-theme", "dark");
+    </script>
+    <link href="static/style.css" rel="stylesheet" />
+    <link href="static/brand.css" rel="stylesheet" />
+  </head>
+
+  <body class="yidong-body">
+    <header class="yidong-topbar">
+      <div class="yidong-brand">
+        <div class="yidong-mark" aria-hidden="true">GC</div>
+        <div>
+          <div class="yidong-product">GameChanger Research Agent</div>
+          <div class="yidong-sub">GameChanger Media Inc. · R&D AI Lab</div>
+        </div>
+      </div>
+      <div class="yidong-status" id="modelStatus">Connecting Model...</div>
+    </header>
+
+    <div class="yidong-layout">
+      <aside class="yidong-side">
+        <section class="yidong-panel">
+          <h2>Product</h2>
+          <p class="yidong-tagline">Market & Tech Research Agent</p>
+          <ul class="yidong-bullets">
+            <li>Web Search & Deep Reader</li>
+            <li>MCP / Hot-pluggable Tool KB</li>
+            <li>Artifact Persistence (Markdown)</li>
+          </ul>
+        </section>
+
+        <section class="yidong-panel">
+          <h2>Connected Tools</h2>
+          <ul class="yidong-caps" id="capabilityList">
+            <li class="is-muted">Loading capabilities...</li>
+          </ul>
+        </section>
+
+        <section class="yidong-panel">
+          <h2>Quick Presets</h2>
+          <button type="button" class="yidong-demo" data-prompt-id="research">
+            <strong>Competitor & Tech Briefing</strong>
+            <span>Search public data & compile report</span>
+          </button>
+          <button type="button" class="yidong-demo" data-prompt-id="docs">
+            <strong>Internal Memo & Digest</strong>
+            <span>Digest action items from workspace</span>
+          </button>
+        </section>
+
+        <section class="yidong-panel">
+          <h2>System Guardrails</h2>
+          <ul class="yidong-bullets">
+            <li>Live search citations require audit</li>
+            <li>Headless browser mode optional</li>
+            <li>Artifacts saved to local workspace/</li>
+          </ul>
+        </section>
+      </aside>
+
+      <main class="yidong-main main-content">
+        <div class="yidong-chat-scroll">
+          <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+              <div class="yidong-hero" id="yidongHero">
+                <div class="yidong-hero-kicker">GameChanger Media Inc. · R&D AI Lab</div>
+                <h1>GameChanger Research Agent</h1>
+                <p>Autonomous research workbench orchestrating search, deep reader, MCP tools & report drafting.</p>
+                <div class="yidong-hero-actions">
+                  <button type="button" class="yidong-hero-btn" data-prompt-id="research">
+                    Start Research Briefing
+                  </button>
+                  <button type="button" class="yidong-hero-btn yidong-hero-btn-ghost" data-prompt-id="docs">
+                    Digest Memo
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-fixed-area yidong-bottom">
+          <div class="input-container">
+            <textarea
+              class="form-control"
+              id="messageInput"
+              placeholder="Enter research objective, e.g.: Compare recent AI features of Notion vs Slack, draft briefing..."
+            ></textarea>
+            <div class="long-thought-toggle">
+              <input type="checkbox" id="longThoughtCheckbox" checked />
+              <label for="longThoughtCheckbox"
+                ><span style="margin-left: 6px">Thought Trace</span></label
+              >
+              <button
+                class="btn btn-history"
+                id="btn-history"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-title="Task History"
+                type="button"
+              >
+                <i class="bi bi-clock-history"></i>
+              </button>
+              <button
+                class="btn btn-chat"
+                id="btn-chat"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                data-bs-title="New Session"
+                type="button"
+              >
+                <i class="bi bi-plus-lg"></i>
+              </button>
+            </div>
+            <div class="input-buttons">
+              <button class="btn btn-primary" id="sendBtn" type="button">
+                <span
+                  class="spinner-border spinner-border-sm me-2"
+                  id="send-spinner"
+                  style="display: none"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
+      <div
+        id="errorToast"
+        class="toast align-items-center text-bg-danger border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body"></div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/bootstrap.bundle.min.js"></script>
+    <script src="static/marked.min.js"></script>
+    <script src="static/purify.min.js"></script>
+    <script src="static/trace_format.js"></script>
+    <script src="static/main.js"></script>
+    <script src="static/brand.js"></script>
+  </body>
+</html>

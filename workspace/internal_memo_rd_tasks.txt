@@ -1,0 +1,12 @@
+# GameChanger R&D Internal Memo (Simulated Benchmark Dataset)
+Date: 2026-08-20
+From: GameChanger Media Inc. · R&D AI Lab
+Subject: Weekly AI Efficiency & Agent Workstream Action Items
+
+1. [High] Finalize 'GameChanger Research Agent' demo workflow: Competitor analysis briefing + internal doc digest dual pathways for technical review. Owner: Alex A. Target: By Friday.
+2. [High] Benchmark Claude 3.5 Sonnet vs GPT-4o function calling stability on MCP tool invocation; document edge-case failures. Owner: Platform Lead. Target: By Wednesday.
+3. [Medium] Standardize workspace deliverable naming schema (research_brief_*.md / task_digest_*.md). Owner: Product Manager. Target: Next Monday.
+4. [Medium] Evaluate Browser-Use / Playwright headless integration overhead vs utility in production pipelines. Owner: Efficiency Team. Target: Tech memo.
+5. [Low] Collect 3 de-identified domain research questions to expand eval suite. Owner: Strategy Analyst. Target: 2 weeks.
+
+Note: Synthetic data for AI Agent document digest demonstration under NDA compliance.
